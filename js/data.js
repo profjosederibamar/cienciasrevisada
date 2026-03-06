@@ -300,6 +300,53 @@ const VIDEOS_DATA = {
                                 correta: 0
                             }
                         ]
+                    },
+                    {
+                        id: "_2KfIUj77a4",
+                        titulo: "Roldanas (Polias)",
+                        assunto: "Máquinas Simples",
+                        perguntas: [
+                            {
+                                pergunta: "O que é uma roldana (ou polia)?",
+                                opcoes: [
+                                    "Uma roda com um sulco pelo qual passa uma corda ou cabo.",
+                                    "Uma alavanca fixa que não se move.",
+                                    "Um plano inclinado usado para descer objetos.",
+                                    "Um tipo de engrenagem sem dentes."
+                                ],
+                                correta: 0
+                            },
+                            {
+                                pergunta: "Qual é a principal função de uma roldana fixa?",
+                                opcoes: [
+                                    "Multiplicar a força aplicada.",
+                                    "Mudar a direção e o sentido da força aplicada.",
+                                    "Aumentar a velocidade do objeto.",
+                                    "Reduzir o peso do objeto pela metade."
+                                ],
+                                correta: 1
+                            },
+                            {
+                                pergunta: "O que acontece ao usar uma roldana móvel?",
+                                opcoes: [
+                                    "A força necessária para levantar a carga é reduzida pela metade.",
+                                    "A direção da força é alterada, mas o esforço é o mesmo.",
+                                    "O peso do objeto aumenta.",
+                                    "A corda não se move."
+                                ],
+                                correta: 0
+                            },
+                            {
+                                pergunta: "Se combinarmos uma roldana fixa com uma roldana móvel (um cadernal), o que ocorre?",
+                                opcoes: [
+                                    "Nenhuma vantagem mecânica é obtida.",
+                                    "A força necessária é dobrada.",
+                                    "Unimos a vantagem de mudar a direção da força com a de reduzir o esforço.",
+                                    "O objeto não pode ser levantado."
+                                ],
+                                correta: 2
+                            }
+                        ]
                     }
                 ]
             },
