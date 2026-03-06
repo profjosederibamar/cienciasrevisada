@@ -186,12 +186,55 @@ const VIDEOS_DATA = {
                                     "É uma ferramenta usada exclusivamente para diminuir a velocidade.",
                                     "É um objeto que só funciona se for feito de metal flexível.",
                                     "É qualquer barra que se mova sobre um ponto de apoio ou fulcro."],
-                                correta: 4
+                                correta: 3
                             },
                             {
-                                pergunta: "Quantos reinos existem na classificação atual?",
-                                opcoes: ["3", "4", "5", "6"],
+                                pergunta: "Como se chama o ponto onde a alavanca se apoia e gira?",
+                                opcoes: ["Resistência.",
+                                    "Potência",
+                                    "Fulcro (ponto de apoio)",
+                                    "Força"],
                                 correta: 2
+                            },
+                            {
+                                pergunta: "Para levantar um objeto muito pesado (maior que o seu próprio peso), qual é a estratégia correta de posicionamento do ponto de apoio?",
+                                opcoes: ["Posicionar o ponto de apoio o mais longe possível da carga.",
+                                    "Posicionar o ponto de apoio o mais próximo possível da carga.",
+                                    "Posicionar o ponto de apoio no meio da carga.",
+                                    "Posicionar o ponto de apoio acima da carga."],
+                                correta: 1
+                            },
+                            {
+                                pergunta: "Em qual das seguintes situações a alavanca é classificada como Interpotente?",
+                                opcoes: ["O ponto de apoio está entre a força potente e a resistência.",
+                                    "A força resistente está entre o ponto de apoio e a força potente.",
+                                    "A força potente está entre o ponto de apoio e a força resistente.",
+                                    "A força potente e a resistência estão no mesmo ponto."],
+                                correta: 2
+                            },
+                            {
+                                pergunta: "Em qual das seguintes situações a alavanca é classificada como Interfixa?",
+                                opcoes: ["O ponto de apoio está entre a força potente e a resistência.",
+                                    "A força resistente está entre o ponto de apoio e a força potente.",
+                                    "A força potente está entre o ponto de apoio e a força resistente.",
+                                    "A força potente e a resistência estão no mesmo ponto."],
+                                correta: 0
+                            },
+                            {
+                                pergunta: "Em qual das seguintes situações a alavanca é classificada como Inter-resistente ?",
+                                opcoes: ["O ponto de apoio está entre a força potente e a resistência.",
+                                    "A força resistente está entre o ponto de apoio e a força potente.",
+                                    "A força potente está entre o ponto de apoio e a força resistente.",
+                                    "A força potente e a resistência estão no mesmo ponto."],
+                                correta: 1
+                            },
+                            {
+                                pergunta: "Qual dos objetos abaixo é um exemplo de alavanca?",
+                                opcoes: ["Lâmpada.",
+                                    "Carrinho de mão.",
+                                    "Escada.",
+                                    "Televisão."],
+                                correta: 1
                             }
                         ]
                     }
