@@ -518,19 +518,70 @@ const VIDEOS_DATA = {
                 cor: "#10b981",
                 videos: [
                     {
-                        id: "dQw4w9WgXcQ",
-                        titulo: "Sistema Esquelético e Muscular",
-                        assunto: "Corpo Humano",
+                        id: "baHzjnj_VNI",
+                        titulo: "Tipos de Reprodução",
+                        assunto: "Reprodução",
                         perguntas: [
                             {
-                                pergunta: "Quantos ossos tem o corpo humano adulto?",
-                                opcoes: ["106", "156", "206", "306"],
+                                pergunta: "Quais são os dois tipos principais de reprodução?",
+                                opcoes: ["Interna e Externa", "Sexuada e Assexuada", "Positiva e Negativa", "Rápida e Lenta"],
+                                correta: 1
+                            },
+                            {
+                                pergunta: "Na reprodução assexuada, como são os descendentes em relação ao genitor?",
+                                opcoes: ["Totalmente diferentes", "Geneticamente idênticos (clones)", "Possuem metade das características", "São sempre maiores"],
+                                correta: 1
+                            }
+                        ]
+                    },
+                    {
+                        id: "LlqmMPSpKTc",
+                        titulo: "Reprodução Sexuada e Assexuada",
+                        assunto: "Reprodução",
+                        perguntas: [
+                            {
+                                pergunta: "Qual característica é exclusiva da reprodução sexuada?",
+                                opcoes: ["Ocorre sem a união de gametas.", "Gera descendentes idênticos.", "Envolve a união de gametas masculina e feminina.", "É mais rápida que a assexuada."],
                                 correta: 2
                             },
                             {
-                                pergunta: "Qual é o maior osso do corpo humano?",
-                                opcoes: ["Úmero", "Tíbia", "Fêmur", "Rádio"],
-                                correta: 2
+                                pergunta: "Qual é a principal vantagem da reprodução sexuada?",
+                                opcoes: ["Aumenta a variabilidade genética da espécie.", "Não gasta energia.", "Gera indivíduos sempre idênticos.", "Ocorre muito mais rápido."],
+                                correta: 0
+                            }
+                        ]
+                    },
+                    {
+                        id: "8kRE0AD7SFM",
+                        titulo: "Reprodução dos Animais",
+                        assunto: "Reprodução",
+                        perguntas: [
+                            {
+                                pergunta: "Como são chamados os animais que se desenvolvem dentro de um ovo fora do corpo materno?",
+                                opcoes: ["Vivíparos", "Ovíparos", "Ovovivíparos", "Marsupiais"],
+                                correta: 1
+                            },
+                            {
+                                pergunta: "Os mamíferos, em sua maioria, apresentam qual tipo de desenvolvimento embrionário?",
+                                opcoes: ["Ovíparo", "Vivíparo", "Ovovivíparo", "Assexuado"],
+                                correta: 1
+                            }
+                        ]
+                    },
+                    {
+                        id: "3r4lFVFxV0A",
+                        titulo: "Reprodução das Plantas",
+                        assunto: "Reprodução",
+                        perguntas: [
+                            {
+                                pergunta: "Qual é o principal órgão reprodutor das plantas angiospermas?",
+                                opcoes: ["Raiz", "Caule", "Folha", "Flor"],
+                                correta: 3
+                            },
+                            {
+                                pergunta: "Como se chama o processo de transporte do pólen até a parte feminina das plantas?",
+                                opcoes: ["Fotossíntese", "Polinização", "Germinação", "Transpiração"],
+                                correta: 1
                             }
                         ]
                     }
