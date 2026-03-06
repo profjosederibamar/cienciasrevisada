@@ -239,14 +239,65 @@ const VIDEOS_DATA = {
                         ]
                     },
                     {
-                        id: "_2KfIUj77a4",
-                        titulo: "Reino Plantae",
-                        assunto: "Botânica",
+                        id: "nXG_p2cAJFk",
+                        titulo: "Rodas e Eixos",
+                        assunto: "Máquinas Simples",
                         perguntas: [
                             {
-                                pergunta: "O que as plantas produzem durante a fotossíntese?",
-                                opcoes: ["CO2", "Glicose e O2", "Água", "Nitrogênio"],
+                                pergunta: "Qual é o princípio fundamental de funcionamento da roda e do eixo?",
+                                opcoes: ["Aumentar a força aplicada através de alavancas.",
+                                    "Diminuir o atrito e multiplicar a força ou a velocidade.",
+                                    "Converter movimento linear em rotacional.",
+                                    "Armazenar energia potencial gravitacional."],
                                 correta: 1
+                            },
+                            {
+                                pergunta: "Em uma roda e eixo, o que representa a 'força potente' (FP)?",
+                                opcoes: ["O peso do objeto que está sendo movido.",
+                                    "A força aplicada pelo operador (ex: girando o volante).",
+                                    "A força de atrito entre o eixo e a roda.",
+                                    "A força de resistência do solo."],
+                                correta: 1
+                            },
+                            {
+                                pergunta: "Para que serve o 'ganho mecânico' em uma roda e eixo?",
+                                opcoes: ["Serve para aumentar a velocidade de rotação.",
+                                    "Serve para diminuir a força necessária para mover uma carga.",
+                                    "Serve para frear o movimento.",
+                                    "Serve para medir a temperatura."],
+                                correta: 1
+                            },
+                            {
+                                pergunta: "Qual das seguintes situações NÃO é um exemplo de roda e eixo?",
+                                opcoes: ["Volante de um carro.",
+                                    "Manivela de um poço.",
+                                    "Parafuso.",
+                                    "Catraca de bicicleta."],
+                                correta: 2
+                            },
+                            {
+                                pergunta: "Como o ganho mecânico é calculado em uma roda e eixo?",
+                                opcoes: ["Raio da roda / Raio do eixo.",
+                                    "Raio do eixo / Raio da roda.",
+                                    "Força potente / Força resistente.",
+                                    "Força resistente / Força potente."],
+                                correta: 0
+                            },
+                            {
+                                pergunta: "Em um carrinho de mão, a roda e o eixo estão posicionados de forma que o ganho mecânico seja...",
+                                opcoes: ["Maior que 1 (multiplica a força).",
+                                    "Menor que 1 (multiplica a velocidade).",
+                                    "Igual a 1 (sem alteração).",
+                                    "Variável."],
+                                correta: 1
+                            },
+                            {
+                                pergunta: "Qual é a principal vantagem de usar uma roda e eixo em vez de arrastar uma carga?",
+                                opcoes: ["Reduz a força necessária e diminui o atrito.",
+                                    "Aumenta a velocidade de deslocamento.",
+                                    "Permite subir inclinações íngremes.",
+                                    "Diminui o peso da carga."],
+                                correta: 0
                             }
                         ]
                     }
