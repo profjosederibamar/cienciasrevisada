@@ -584,6 +584,48 @@ const VIDEOS_DATA = {
                                 correta: 1
                             }
                         ]
+                    },
+                    {
+                        id: "UlNCJd3fJe8",
+                        titulo: "Reprodução das Plantas - Vídeo sugerido pelo professor",
+                        assunto: "Reprodução",
+                        perguntas: [
+                            {
+                                pergunta: "Qual é a principal função da flor nas plantas angiospermas?",
+                                opcoes: ["Produzir folhas", "Realizar a reprodução da planta", "Armazenar água", "Produzir alimento"],
+                                correta: 1
+                            },
+                            {
+                                pergunta: "O que é o pólen?",
+                                opcoes: ["Gameta masculino", "Gameta feminino", "Órgão reprodutor", "Fruto"],
+                                correta: 0
+                            },
+                            {
+                                pergunta: "O que é a polinização?",
+                                opcoes: ["Transporte do pólen até a parte feminina das plantas", "Transporte do gameta feminino até a parte masculina das plantas", "Transporte do gameta masculino até a parte feminina das plantas", "Transporte do gameta masculino até a parte feminina das plantas"],
+                                correta: 2
+                            },
+                            {
+                                pergunta: "Qual estrutura da planta se forma após a fecundação e pode dar origem a uma nova planta?",
+                                opcoes: ["Raiz", "Caule", "Folha", "Semente"],
+                                correta: 3
+                            },
+                            {
+                                pergunta: "Qual dos grupos de plantas produz sementes protegidas por frutos?",
+                                opcoes: ["Briófitas", "Pteridófitas", "Gimnospermas", "Angiospermas"],
+                                correta: 3
+                            },
+                            {
+                                pergunta: "Qual dos agentes abaixo pode ajudar no processo de polinização das plantas?",
+                                opcoes: ["Vento", "Água", "Animais", "Todos os anteriores"],
+                                correta: 3
+                            },
+                            {
+                                pergunta: "Qual dos agentes abaixo pode ajudar no processo de polinização das plantas?",
+                                opcoes: ["Solo", "Raízes", "Animais", "Rochas"],
+                                correta: 2
+                            }
+                        ]
                     }
                 ]
             },
