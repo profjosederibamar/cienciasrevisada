@@ -177,7 +177,7 @@ const VIDEOS_DATA = {
                 videos: [
                     {
                         id: "SL7bxTDhlEw",
-                        titulo: "Máquinas Simples",
+                        titulo: "Máquinas Simples-Alavancas",
                         assunto: "Alavancas",
                         perguntas: [
                             {
@@ -240,7 +240,7 @@ const VIDEOS_DATA = {
                     },
                     {
                         id: "nXG_p2cAJFk",
-                        titulo: "Rodas e Eixos",
+                        titulo: "Máquinas Simples-Rodas e Eixos",
                         assunto: "Máquinas Simples",
                         perguntas: [
                             {
@@ -303,7 +303,7 @@ const VIDEOS_DATA = {
                     },
                     {
                         id: "_2KfIUj77a4",
-                        titulo: "Roldanas (Polias)",
+                        titulo: "Máquinas Simples-Roldanas (Polias)",
                         assunto: "Máquinas Simples",
                         perguntas: [
                             {
@@ -346,10 +346,77 @@ const VIDEOS_DATA = {
                                 ],
                                 correta: 2
                             }
+
+                        ]
+                    },
+                    {
+                        id: "V6c_j0-VEOs",
+                        titulo: "Máquinas Simples-Plano Inclinado",
+                        assunto: "Máquinas Simples",
+                        perguntas: [
+                            {
+                                pergunta: "O que é um plano inclinado?",
+                                opcoes: [
+                                    "Uma superfície perfeitamente nivelada e horizontal.",
+                                    "Uma superfície plana e rígida, inclinada em relação à horizontal.",
+                                    "Um tipo de alavanca com o ponto de apoio no centro.",
+                                    "Uma roda conectada a um eixo central."
+                                ],
+                                correta: 1
+                            },
+                            {
+                                pergunta: "Qual a principal vantagem de usar um plano inclinado?",
+                                opcoes: [
+                                    "Eleva uma carga aplicando uma força menor do que a necessária para erguê-la verticalmente.",
+                                    "Diminui a distância percorrida pelo objeto.",
+                                    "Aumenta a velocidade de queda do objeto.",
+                                    "Aumenta o peso do objeto que será movido."
+                                ],
+                                correta: 0
+                            },
+                            {
+                                pergunta: "A rampa, o parafuso e a cunha são aplicações práticas de qual máquina simples?",
+                                opcoes: [
+                                    "Roldanas",
+                                    "Alavancas",
+                                    "Plano inclinado",
+                                    "Rodas e Eixos"
+                                ],
+                                correta: 2
+                            },
+                            {
+                                pergunta: "Como a inclinação da rampa afeta a força necessária para subir o objeto?",
+                                opcoes: [
+                                    "Quanto mais íngreme, menor a força necessária.",
+                                    "Quanto mais suave (menos inclinada), maior a força necessária.",
+                                    "A inclinação não afeta a força necessária.",
+                                    "Quanto mais suave (menos inclinada), menor a força, mas maior a distância."
+                                ],
+                                correta: 3
+                            }
+                        ]
+                    },
+                    {
+                        id: "COLE_O_ID_AQUI",          // ID do YouTube
+                        titulo: "Nome do Vídeo",        // Título que aparecerá no app
+                        assunto: "Tema da Aula",        // Ex: "Ecologia", "Corpo Humano"
+                        perguntas: [
+                            {
+                                pergunta: "Sua pergunta aqui?",
+                                opcoes: [
+                                    "Alternativa A",
+                                    "Alternativa B",
+                                    "Alternativa C",
+                                    "Alternativa D"
+                                ],
+                                correta: 0  // 0=A, 1=B, 2=C, 3=D
+                            }
                         ]
                     }
+
                 ]
             },
+
             "2": {
                 titulo: "2° Bimestre",
                 icone: "🌿",
