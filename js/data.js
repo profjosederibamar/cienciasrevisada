@@ -397,19 +397,49 @@ const VIDEOS_DATA = {
                         ]
                     },
                     {
-                        id: "COLE_O_ID_AQUI",          // ID do YouTube
-                        titulo: "Nome do Vídeo",        // Título que aparecerá no app
-                        assunto: "Tema da Aula",        // Ex: "Ecologia", "Corpo Humano"
+                        id: "lUUZoci8qc0",          // ID do YouTube
+                        titulo: "Máquinas Simples-Cunha e Parafuso",        // Título que aparecerá no app
+                        assunto: "Máquinas Simples",        // Ex: "Ecologia", "Corpo Humano"
                         perguntas: [
                             {
-                                pergunta: "Sua pergunta aqui?",
+                                pergunta: "O que é a cunha?",
                                 opcoes: [
-                                    "Alternativa A",
-                                    "Alternativa B",
-                                    "Alternativa C",
-                                    "Alternativa D"
+                                    "Uma máquina simples formada por duas superfícies inclinadas",
+                                    "Uma máquina simples formada por uma superfície inclinada",
+                                    "Uma máquina simples formada por três superfícies inclinadas",
+                                    "Uma máquina simples formada por quatro superfícies inclinadas"
                                 ],
                                 correta: 0  // 0=A, 1=B, 2=C, 3=D
+                            },
+                            {
+                                pergunta: "Qual é a principal função de uma cunha?",
+                                opcoes: [
+                                    "Multiplicar a força aplicada.",
+                                    "Mudar a direção e o sentido da força aplicada.",
+                                    "Aumentar a velocidade do objeto.",
+                                    "Dividir ou separar objetos."
+                                ],
+                                correta: 3
+                            },
+                            {
+                                pergunta: "O que acontece ao usar uma cunha?",
+                                opcoes: [
+                                    "A força necessária é dobrada.",
+                                    "A direção da força é alterada, mas o esforço é o mesmo.",
+                                    "O peso do objeto aumenta.",
+                                    "A força aplicada é dividida, permitindo separar ou cortar objetos."
+                                ],
+                                correta: 3
+                            },
+                            {
+                                pergunta: "Se combinarmos uma cunha com uma roldana móvel (um cadernal), o que ocorre?",
+                                opcoes: [
+                                    "Nenhuma vantagem mecânica é obtida.",
+                                    "A força necessária é dobrada.",
+                                    "Unimos a vantagem de mudar a direção da força com a de reduzir o esforço.",
+                                    "O objeto não pode ser levantado."
+                                ],
+                                correta: 2
                             }
                         ]
                     }
