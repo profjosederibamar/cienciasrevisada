@@ -700,29 +700,96 @@ const VIDEOS_DATA = {
                 cor: "#10b981",
                 videos: [
                     {
-                        id: "dQw4w9WgXcQ",
-                        titulo: "Estrutura Atômica",
+                        id: "q7g9zNpfXiQ",
+                        titulo: "Estrutura da Matéria e Transformações Químicas",
                         assunto: "Química",
                         perguntas: [
                             {
-                                pergunta: "Quais são as partículas subatômicas do átomo?",
+                                pergunta: "Quais são as partículas subatômicas fundamentais do átomo?",
                                 opcoes: [
                                     "Prótons, nêutrons e elétrons",
-                                    "Moléculas e átomos",
-                                    "Íons e cátions",
+                                    "Moléculas e íons",
+                                    "Cátions e ânions",
                                     "Fótons e neutrinos"
                                 ],
                                 correta: 0
                             },
                             {
-                                pergunta: "Onde ficam os elétrons no átomo?",
+                                pergunta: "Onde ficam localizados os elétrons no átomo?",
                                 opcoes: [
-                                    "No núcleo",
-                                    "Na eletrosfera",
-                                    "Dentro dos prótons",
-                                    "Fora do átomo"
+                                    "No núcleo, junto com os prótons",
+                                    "Na eletrosfera, ao redor do núcleo",
+                                    "Dentro dos nêutrons",
+                                    "Espalhados uniformemente por todo o átomo"
                                 ],
                                 correta: 1
+                            },
+                            {
+                                pergunta: "O que diz a Lei de Lavoisier (Lei da Conservação das Massas)?",
+                                opcoes: [
+                                    "A massa dos produtos é sempre maior que a dos reagentes.",
+                                    "Na natureza, nada se cria, nada se perde, tudo se transforma.",
+                                    "As substâncias reagem em proporções totalmente aleatórias.",
+                                    "As transformações químicas alteram a massa total de um sistema fechado."
+                                ],
+                                correta: 1
+                            },
+                            {
+                                pergunta: "O que a Lei das Proporções Constantes (Lei de Proust) estabelece?",
+                                opcoes: [
+                                    "As substâncias participam de uma reação em proporções fixas e definidas.",
+                                    "A proporção de massas entre os reagentes varia com o tempo e o estado físico.",
+                                    "Toda reação química precisa de calor para ocorrer e formar novos produtos.",
+                                    "As reações não possuem uma massa definida dos compostos."
+                                ],
+                                correta: 0
+                            }
+                        ]
+                    },
+                    {
+                        id: "RNS2p5pOG98",
+                        titulo: "A Tabela Periódica",
+                        assunto: "Química",
+                        perguntas: [
+                            {
+                                pergunta: "Como os elementos químicos estão organizados na Tabela Periódica moderna?",
+                                opcoes: [
+                                    "Em ordem decrescente de massa atômica.",
+                                    "Em ordem alfabética de seus nomes.",
+                                    "Em ordem crescente de número atômico (número de prótons).",
+                                    "De acordo com a data em que foram descobertos."
+                                ],
+                                correta: 2
+                            },
+                            {
+                                pergunta: "Na Tabela Periódica, as colunas verticais (grupos ou famílias) indicam elementos que possuem:",
+                                opcoes: [
+                                    "O mesmo número de prótons e nêutrons.",
+                                    "Propriedades químicas semelhantes e o mesmo número de elétrons na camada de valência (última camada).",
+                                    "O mesmo estado físico ambiente garantido e mesma cor.",
+                                    "O mesmo número de níveis de energia (camadas eletrônicas)."
+                                ],
+                                correta: 1
+                            },
+                            {
+                                pergunta: "Os elementos situados nas linhas horizontais (períodos) da Tabela Periódica possuem em comum:",
+                                opcoes: [
+                                    "O mesmo número de camadas eletrônicas (níveis de energia).",
+                                    "A capacidade de ser um metal maleável e flexível.",
+                                    "O fato de pertencerem sempre à mesma família de metais.",
+                                    "As mesmas propriedades químicas reativas com a água."
+                                ],
+                                correta: 0
+                            },
+                            {
+                                pergunta: "Os gases nobres, localizados no grupo 18 (última coluna) da Tabela Periódica, são conhecidos por:",
+                                opcoes: [
+                                    "Reagirem facilmente formando sais com muita energia.",
+                                    "Serem excelentes condutores térmicos e bons condutores elétricos.",
+                                    "Apresentarem altíssima reatividade química formando explosões.",
+                                    "Serem gases inertes que apresentam grande estabilidade e raramente formam compostos na natureza."
+                                ],
+                                correta: 3
                             }
                         ]
                     }
