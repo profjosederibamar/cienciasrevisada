@@ -83,9 +83,12 @@ function startApp() {
 }
 
 // Handle Enter key on name input
-document.getElementById('studentName').addEventListener('keydown', function (e) {
-    if (e.key === 'Enter') startApp();
-});
+const studentNameInput = document.getElementById('studentName');
+if (studentNameInput) {
+    studentNameInput.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') startApp();
+    });
+}
 
 // ---- Render Grades ----
 function renderGrades() {
@@ -586,68 +589,89 @@ function createConfetti() {
 
 // ---- Generate and Send Report ----
 function generateAndSendReport() {
-    showToast('⏳', 'Gerando relatório PDF e abrindo seu e-mail...');
+    try {
+        console.log('Iniciando geração de relatório para:', state.name);
+        showToast('⏳', 'Gerando relatório PDF...');
 
-    // 1. Abrir o cliente de e-mail IMEDIATAMENTE (síncrono com o clique)
-    const email = 'jose.reis@professor.to.gov.br';
-    const subject = encodeURIComponent(`Relatório Semanal de Ciências - ${state.name}`);
-    const body = encodeURIComponent(
-        `Olá, professor José Reis.\n\n` +
-        `Segue em anexo o meu relatório semanal de progresso do aplicativo Ciências Revisada.\n\n` +
-        `Aluno(a): ${state.name}\n\n` +
-        `👉 [ATENÇÃO ALUNO: NÃO SE ESQUEÇA DE ANEXAR O ARQUIVO PDF GERADO ANTES DE ENVIAR ESTE EMAIL!]\n\n` +
-        `Obrigado!`
-    );
-    window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+        // 1. Criar uma div temporária para o conteúdo do PDF
+        const reportHtml = `
+            <div style="font-family: Arial, sans-serif; padding: 40px; color: #333; max-width: 800px; margin: 0 auto;">
+                <h1 style="color: #7c3aed; text-align: center; font-size: 28px;">Relatório de Progresso</h1>
+                <h2 style="text-align: center; color: #555; font-size: 20px;">Ciências Revisada</h2>
+                <hr style="border: 1px solid #ccc; margin: 20px 0;">
+                
+                <div style="background-color: #f8fafc; border: 1px solid #eee; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+                    <p style="font-size: 18px; margin-bottom: 8px;"><strong>Aluno(a):</strong> ${state.name}</p>
+                    <p style="font-size: 16px; margin-bottom: 8px;"><strong>Nível Atual:</strong> ${getLevel(state.xp).emoji} ${getLevel(state.xp).nome}</p>
+                    <p style="font-size: 16px; margin-bottom: 8px;"><strong>XP Total:</strong> ${state.xp}</p>
+                </div>
 
-    // 2. Criar uma div temporária para o PDF
-    const reportHtml = `
-        <div style="font-family: Arial, sans-serif; padding: 40px; color: #333; max-width: 800px; margin: 0 auto;">
-            <h1 style="color: #7c3aed; text-align: center; font-size: 28px;">Relatório de Progresso</h1>
-            <h2 style="text-align: center; color: #555; font-size: 20px;">Ciências Revisada</h2>
-            <hr style="border: 1px solid #ccc; margin: 20px 0;">
-            
-            <div style="background-color: #f8fafc; border: 1px solid #eee; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
-                <p style="font-size: 18px; margin-bottom: 8px;"><strong>Aluno(a):</strong> ${state.name}</p>
-                <p style="font-size: 16px; margin-bottom: 8px;"><strong>Nível Atual:</strong> ${getLevel(state.xp).emoji} ${getLevel(state.xp).nome}</p>
-                <p style="font-size: 16px; margin-bottom: 8px;"><strong>XP Total:</strong> ${state.xp}</p>
+                <h3 style="margin-bottom: 12px; font-size: 18px;">Estatísticas:</h3>
+                <ul style="line-height: 1.8; font-size: 16px; margin-bottom: 20px;">
+                    <li>Vídeos Assistidos: <strong>${state.watchedVideos.length}</strong></li>
+                    <li>Quizzes Respondidos: <strong>${Object.keys(state.quizResults).length}</strong></li>
+                    <li>Dias Seguidos (Ofensiva): <strong>${state.streak}</strong></li>
+                    <li>Conquistas Desbloqueadas: <strong>${state.badges.length}</strong></li>
+                </ul>
+                
+                <hr style="border: 1px solid #ccc; margin: 20px 0;">
+                <p style="margin-top: 40px; text-align: center; font-size: 12px; color: #888;">
+                    Gerado em: ${new Date().toLocaleDateString('pt-BR')} às ${new Date().toLocaleTimeString('pt-BR')}
+                </p>
             </div>
+        `;
 
-            <h3 style="margin-bottom: 12px; font-size: 18px;">Estatísticas:</h3>
-            <ul style="line-height: 1.8; font-size: 16px; margin-bottom: 20px;">
-                <li>Vídeos Assistidos: <strong>${state.watchedVideos.length}</strong></li>
-                <li>Quizzes Respondidos: <strong>${Object.keys(state.quizResults).length}</strong></li>
-                <li>Dias Seguidos (Ofensiva): <strong>${state.streak}</strong></li>
-                <li>Conquistas Desbloqueadas: <strong>${state.badges.length}</strong></li>
-            </ul>
-            
-            <hr style="border: 1px solid #ccc; margin: 20px 0;">
-            <p style="margin-top: 40px; text-align: center; font-size: 12px; color: #888;">
-                Gerado em: ${new Date().toLocaleDateString('pt-BR')} às ${new Date().toLocaleTimeString('pt-BR')}
-            </p>
-        </div>
-    `;
+        const printContainer = document.createElement('div');
+        printContainer.id = 'printArea';
+        printContainer.innerHTML = reportHtml;
+        printContainer.style.display = 'none';
+        document.body.appendChild(printContainer);
 
-    const printContainer = document.createElement('div');
-    printContainer.id = 'printArea';
-    printContainer.innerHTML = reportHtml;
-    // Ocultar a div em tela normal usando inline e deixar visível só no print via CSS
-    printContainer.style.display = 'none';
-    document.body.appendChild(printContainer);
+        // 2. Função para abrir o e-mail (chamada após fechar o print)
+        const openEmailClient = () => {
+            console.log('Abrindo cliente de e-mail...');
+            const email = 'jose.reis@professor.to.gov.br';
+            const subject = encodeURIComponent(`Relatório Semanal de Ciências - ${state.name}`);
+            const body = encodeURIComponent(
+                `Olá, professor José Reis.\n\n` +
+                `Segue em anexo o meu relatório semanal de progresso do aplicativo Ciências Revisada.\n\n` +
+                `Aluno(a): ${state.name}\n\n` +
+                `👉 [ATENÇÃO ALUNO: NÃO SE ESQUEÇA DE ANEXAR O ARQUIVO PDF GERADO ANTES DE ENVIAR ESTE EMAIL!]\n\n` +
+                `Obrigado!`
+            );
+            window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+            showToast('✅', 'Anexe o PDF e envie o e-mail!');
+        };
 
-    // Como o botão click não consegue abrir o dialog de print instantaneamente junto com o location mailto,
-    // damos um pequeno atraso para a interface renderizar (e o mailto não bloquear o javascript de print).
-    setTimeout(() => {
-        // Exibir temporariamente apenas para o print
-        printContainer.style.display = 'block';
+        // 3. Disparar o Print (Geração do PDF via Sistema)
+        setTimeout(() => {
+            printContainer.style.display = 'block';
 
-        // Disparar diálogo de impressão do sistema
-        window.print();
+            // Ouvinte para saber quando o print fechou
+            window.onafterprint = () => {
+                console.log('Impressão finalizada/cancelada.');
+                document.body.removeChild(printContainer);
+                window.onafterprint = null; // Limpar ouvinte
+                openEmailClient();
+            };
 
-        // Remover a div depois do pop-up
-        document.body.removeChild(printContainer);
-        showToast('✅', 'Salve o arquivo como PDF!');
-    }, 500);
+            window.print();
+
+            // Backup caso o onafterprint não dispare (safari etc)
+            if (navigator.userAgent.indexOf('Safari') != -1 && navigator.userAgent.indexOf('Chrome') == -1) {
+                setTimeout(() => {
+                    if (document.getElementById('printArea')) {
+                        document.body.removeChild(printContainer);
+                        openEmailClient();
+                    }
+                }, 2000);
+            }
+        }, 300);
+
+    } catch (error) {
+        console.error('Erro na função de relatório:', error);
+        showToast('❌', 'Houve um erro ao gerar o relatório.');
+    }
 }
 
 // ---- Initialize ----
