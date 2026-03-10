@@ -587,40 +587,118 @@ function createConfetti() {
     }
 }
 
-// ---- Generate and Send Report ----
-function generateAndSendReport() {
-    console.log('Iniciando geração de relatório (Texto) para:', state.name);
+// ---- Report System ----
+const PROFESSOR_EMAIL = 'jose.reis@professor.to.gov.br';
 
-    // Gerar o texto formatado do relatório
-    const reportText = `🧑‍🏫 *Relatório de Ciências Revisada* 🧑‍🏫\n\n` +
-        `👤 *Aluno(a):* ${state.name}\n` +
-        `🏅 *Nível:* ${getLevel(state.xp).emoji} ${getLevel(state.xp).nome}\n` +
-        `⭐ *XP Total:* ${state.xp}\n\n` +
-        `📊 *Estatísticas:*\n` +
-        `📺 Vídeos Assistidos: ${state.watchedVideos.length}\n` +
-        `📝 Quizzes Respondidos: ${Object.keys(state.quizResults).length}\n` +
-        `🔥 Ofensiva (Dias seguidos): ${state.streak}\n` +
-        `🏆 Conquistas: ${state.badges.length}\n\n` +
-        `📅 Gerado em: ${new Date().toLocaleDateString('pt-BR')} às ${new Date().toLocaleTimeString('pt-BR')}`;
+function buildReportText() {
+    const level = getLevel(state.xp);
+    const now = new Date();
+    const dateStr = now.toLocaleDateString('pt-BR');
+    const timeStr = now.toLocaleTimeString('pt-BR');
 
-    // Tentar usar a Web Share API nativa (disponível em celulares e navegadores modernos)
+    let report = `📋 RELATÓRIO DE DESEMPENHO — CIÊNCIAS REVISADA\n`;
+    report += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
+    report += `👤 Aluno(a): ${state.name}\n`;
+    report += `🏅 Nível: ${level.emoji} ${level.nome}\n`;
+    report += `⭐ XP Total: ${state.xp}\n`;
+    report += `🔥 Ofensiva: ${state.streak} dia(s) seguido(s)\n`;
+    report += `🏆 Conquistas: ${state.badges.length}/${BADGES.length}\n\n`;
+
+    report += `📊 ESTATÍSTICAS GERAIS\n`;
+    report += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+    report += `📺 Vídeos Assistidos: ${state.watchedVideos.length}\n`;
+    report += `📝 Quizzes Respondidos: ${Object.keys(state.quizResults).length}\n\n`;
+
+    // Detalhamento por turma
+    for (const [turmaKey, turma] of Object.entries(VIDEOS_DATA)) {
+        const turmaVideos = state.watchedVideos.filter(v => v.startsWith(turmaKey + '-'));
+        const turmaQuizzes = Object.keys(state.quizResults).filter(v => v.startsWith(turmaKey + '-'));
+        if (turmaVideos.length === 0 && turmaQuizzes.length === 0) continue;
+
+        report += `${turma.emoji} ${turma.nome}\n`;
+        for (const [bimKey, bim] of Object.entries(turma.bimestres)) {
+            const bimVideos = bim.videos.filter((_, idx) =>
+                state.watchedVideos.includes(`${turmaKey}-${bimKey}-${idx}`)
+            );
+            if (bimVideos.length === 0) continue;
+
+            report += `  📚 ${bim.titulo}: ${bimVideos.length}/${bim.videos.length} vídeos\n`;
+
+            bim.videos.forEach((video, idx) => {
+                const videoKey = `${turmaKey}-${bimKey}-${idx}`;
+                const watched = state.watchedVideos.includes(videoKey);
+                const quiz = state.quizResults[videoKey];
+                if (watched) {
+                    report += `    ✅ ${video.titulo}`;
+                    if (quiz) {
+                        report += ` — Quiz: ${quiz.correct}/${quiz.total}`;
+                    }
+                    report += `\n`;
+                }
+            });
+        }
+        report += `\n`;
+    }
+
+    report += `📅 Gerado em: ${dateStr} às ${timeStr}\n`;
+    report += `🌐 Plataforma: Ciências Revisada`;
+
+    return report;
+}
+
+function openReportModal() {
+    // Ocultar botão de compartilhar se API indisponível
+    const shareBtn = document.getElementById('shareOptionBtn');
+    if (shareBtn) {
+        shareBtn.style.display = navigator.share ? 'flex' : 'none';
+    }
+    document.getElementById('reportModal').style.display = 'flex';
+}
+
+function closeReportModal(event) {
+    // Se foi chamado pelo onclick do overlay, apenas fecha se clicou no overlay (não no conteúdo)
+    if (event && event.target !== event.currentTarget) return;
+    document.getElementById('reportModal').style.display = 'none';
+}
+
+function sendReportByEmail() {
+    const reportText = buildReportText();
+    const level = getLevel(state.xp);
+    const subject = encodeURIComponent(`Relatório Ciências Revisada — ${state.name} (${level.nome})`);
+    const body = encodeURIComponent(reportText);
+    const mailtoLink = `mailto:${PROFESSOR_EMAIL}?subject=${subject}&body=${body}`;
+
+    window.open(mailtoLink, '_blank');
+
+    closeReportModal();
+    showToast('📧', 'Abrindo seu app de e-mail...');
+}
+
+function shareReport() {
+    const reportText = buildReportText();
+
     if (navigator.share) {
         navigator.share({
-            title: 'Relatório de Ciências',
+            title: `Relatório de ${state.name} — Ciências Revisada`,
             text: reportText
         })
             .then(() => {
-                console.log('Relatório compartilhado com sucesso!');
-                // showToast('✅', 'Relatório compartilhado!'); // Opcional, o SO já dá feedback
+                closeReportModal();
+                showToast('✅', 'Relatório compartilhado!');
             })
             .catch((error) => {
-                console.log('Compartilhamento cancelado ou falhou. Tentando copiar texto...', error);
-                copyToClipboard(reportText);
+                console.log('Compartilhamento cancelado:', error);
             });
     } else {
-        // Fallback: Copiar para a área de transferência se o navegador for antigo ou desktop incompatível
         copyToClipboard(reportText);
+        closeReportModal();
     }
+}
+
+function copyReportToClipboard() {
+    const reportText = buildReportText();
+    copyToClipboard(reportText);
+    closeReportModal();
 }
 
 // Função auxiliar para copiar texto para a área de transferência
@@ -637,7 +715,6 @@ function copyToClipboard(text) {
 function fallbackCopyTextToClipboard(text) {
     const textArea = document.createElement("textarea");
     textArea.value = text;
-    // Evita scroll para o final da página
     textArea.style.top = "0";
     textArea.style.left = "0";
     textArea.style.position = "fixed";

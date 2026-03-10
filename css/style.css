@@ -1190,6 +1190,162 @@ img {
     margin-bottom: 20px;
 }
 
+/* ---- Report Modal ---- */
+.report-modal {
+    max-width: 420px;
+    border-color: rgba(16, 185, 129, .3);
+    padding: 32px 28px;
+    position: relative;
+}
+
+.report-modal-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .06);
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: .85rem;
+    transition: var(--transition);
+    border: none;
+    cursor: pointer;
+}
+
+.report-modal-close:hover {
+    background: rgba(255, 255, 255, .12);
+    color: var(--text-primary);
+}
+
+.report-modal-icon {
+    font-size: 3.5rem;
+    margin-bottom: 8px;
+}
+
+.report-modal h2 {
+    margin-bottom: 6px;
+}
+
+.report-modal-subtitle {
+    color: var(--text-secondary);
+    font-size: .9rem;
+    margin-bottom: 24px;
+}
+
+.report-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.report-option-btn {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 20px;
+    border-radius: var(--radius-md);
+    border: 2px solid rgba(255, 255, 255, .08);
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: var(--transition);
+    text-align: left;
+    font-family: var(--font);
+    position: relative;
+    overflow: hidden;
+}
+
+.report-option-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity var(--transition);
+}
+
+.report-option-btn:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, .15);
+}
+
+.report-option-btn:hover::before {
+    opacity: 1;
+}
+
+.report-option-btn i {
+    font-size: 1.4rem;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.report-option-btn span {
+    font-size: 1rem;
+    font-weight: 600;
+    display: block;
+}
+
+.report-option-btn small {
+    font-size: .75rem;
+    color: var(--text-muted);
+    display: block;
+    margin-top: 2px;
+    font-weight: 400;
+}
+
+/* Email option */
+.report-option-email i {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: #fff;
+}
+
+.report-option-email::before {
+    background: linear-gradient(135deg, rgba(16, 185, 129, .1), transparent);
+}
+
+.report-option-email:hover {
+    border-color: rgba(16, 185, 129, .4);
+    box-shadow: 0 4px 20px rgba(16, 185, 129, .15);
+}
+
+/* Share option */
+.report-option-share i {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    color: #fff;
+}
+
+.report-option-share::before {
+    background: linear-gradient(135deg, rgba(59, 130, 246, .1), transparent);
+}
+
+.report-option-share:hover {
+    border-color: rgba(59, 130, 246, .4);
+    box-shadow: 0 4px 20px rgba(59, 130, 246, .15);
+}
+
+/* Copy option */
+.report-option-copy i {
+    background: linear-gradient(135deg, #f97316, #ea580c);
+    color: #fff;
+}
+
+.report-option-copy::before {
+    background: linear-gradient(135deg, rgba(249, 115, 22, .1), transparent);
+}
+
+.report-option-copy:hover {
+    border-color: rgba(249, 115, 22, .4);
+    box-shadow: 0 4px 20px rgba(249, 115, 22, .15);
+}
+
 /* ---- Confetti ---- */
 .level-up-confetti {
     position: absolute;
