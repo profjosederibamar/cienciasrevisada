@@ -587,151 +587,61 @@ function createConfetti() {
     }
 }
 
-// ---- Report System ----
-const PROFESSOR_EMAIL = 'jose.reis@professor.to.gov.br';
-
-function buildReportText() {
+// ---- Report via WhatsApp ----
+function sendReportWhatsApp() {
     const level = getLevel(state.xp);
     const now = new Date();
     const dateStr = now.toLocaleDateString('pt-BR');
     const timeStr = now.toLocaleTimeString('pt-BR');
 
-    let report = `📋 RELATÓRIO DE DESEMPENHO — CIÊNCIAS REVISADA\n`;
-    report += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
-    report += `👤 Aluno(a): ${state.name}\n`;
-    report += `🏅 Nível: ${level.emoji} ${level.nome}\n`;
-    report += `⭐ XP Total: ${state.xp}\n`;
-    report += `🔥 Ofensiva: ${state.streak} dia(s) seguido(s)\n`;
-    report += `🏆 Conquistas: ${state.badges.length}/${BADGES.length}\n\n`;
+    let report = `📋 *RELATÓRIO DE DESEMPENHO*\n`;
+    report += `*Ciências Revisada*\n\n`;
+    report += `👤 *Aluno(a):* ${state.name}\n`;
+    report += `🏅 *Nível:* ${level.emoji} ${level.nome}\n`;
+    report += `⭐ *XP Total:* ${state.xp}\n`;
+    report += `🔥 *Ofensiva:* ${state.streak} dia(s)\n`;
+    report += `🏆 *Conquistas:* ${state.badges.length}/${BADGES.length}\n\n`;
 
-    report += `📊 ESTATÍSTICAS GERAIS\n`;
-    report += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
-    report += `📺 Vídeos Assistidos: ${state.watchedVideos.length}\n`;
-    report += `📝 Quizzes Respondidos: ${Object.keys(state.quizResults).length}\n\n`;
+    report += `📊 *ESTATÍSTICAS*\n`;
+    report += `📺 Vídeos: ${state.watchedVideos.length}\n`;
+    report += `📝 Quizzes: ${Object.keys(state.quizResults).length}\n\n`;
 
     // Detalhamento por turma
+    let hasDetail = false;
     for (const [turmaKey, turma] of Object.entries(VIDEOS_DATA)) {
         const turmaVideos = state.watchedVideos.filter(v => v.startsWith(turmaKey + '-'));
-        const turmaQuizzes = Object.keys(state.quizResults).filter(v => v.startsWith(turmaKey + '-'));
-        if (turmaVideos.length === 0 && turmaQuizzes.length === 0) continue;
+        if (turmaVideos.length === 0) continue;
+        hasDetail = true;
 
-        report += `${turma.emoji} ${turma.nome}\n`;
+        report += `${turma.emoji} *${turma.nome}*\n`;
         for (const [bimKey, bim] of Object.entries(turma.bimestres)) {
-            const bimVideos = bim.videos.filter((_, idx) =>
+            const bimWatched = bim.videos.filter((_, idx) =>
                 state.watchedVideos.includes(`${turmaKey}-${bimKey}-${idx}`)
             );
-            if (bimVideos.length === 0) continue;
+            if (bimWatched.length === 0) continue;
 
-            report += `  📚 ${bim.titulo}: ${bimVideos.length}/${bim.videos.length} vídeos\n`;
+            report += `  📚 ${bim.titulo}: ${bimWatched.length}/${bim.videos.length}\n`;
 
             bim.videos.forEach((video, idx) => {
                 const videoKey = `${turmaKey}-${bimKey}-${idx}`;
-                const watched = state.watchedVideos.includes(videoKey);
+                if (!state.watchedVideos.includes(videoKey)) return;
                 const quiz = state.quizResults[videoKey];
-                if (watched) {
-                    report += `    ✅ ${video.titulo}`;
-                    if (quiz) {
-                        report += ` — Quiz: ${quiz.correct}/${quiz.total}`;
-                    }
-                    report += `\n`;
-                }
+                report += `    ✅ ${video.titulo}`;
+                if (quiz) report += ` (${quiz.correct}/${quiz.total})`;
+                report += `\n`;
             });
         }
         report += `\n`;
     }
 
-    report += `📅 Gerado em: ${dateStr} às ${timeStr}\n`;
-    report += `🌐 Plataforma: Ciências Revisada`;
+    report += `📅 ${dateStr} às ${timeStr}`;
 
-    return report;
-}
+    // Abrir WhatsApp com o texto do relatório
+    const encodedText = encodeURIComponent(report);
+    const whatsappUrl = `https://wa.me/?text=${encodedText}`;
 
-function openReportModal() {
-    // Ocultar botão de compartilhar se API indisponível
-    const shareBtn = document.getElementById('shareOptionBtn');
-    if (shareBtn) {
-        shareBtn.style.display = navigator.share ? 'flex' : 'none';
-    }
-    document.getElementById('reportModal').style.display = 'flex';
-}
-
-function closeReportModal(event) {
-    // Se foi chamado pelo onclick do overlay, apenas fecha se clicou no overlay (não no conteúdo)
-    if (event && event.target !== event.currentTarget) return;
-    document.getElementById('reportModal').style.display = 'none';
-}
-
-function sendReportByEmail() {
-    const reportText = buildReportText();
-    const level = getLevel(state.xp);
-    const subject = encodeURIComponent(`Relatório Ciências Revisada — ${state.name} (${level.nome})`);
-    const body = encodeURIComponent(reportText);
-    const mailtoLink = `mailto:${PROFESSOR_EMAIL}?subject=${subject}&body=${body}`;
-
-    window.open(mailtoLink, '_blank');
-
-    closeReportModal();
-    showToast('📧', 'Abrindo seu app de e-mail...');
-}
-
-function shareReport() {
-    const reportText = buildReportText();
-
-    if (navigator.share) {
-        navigator.share({
-            title: `Relatório de ${state.name} — Ciências Revisada`,
-            text: reportText
-        })
-            .then(() => {
-                closeReportModal();
-                showToast('✅', 'Relatório compartilhado!');
-            })
-            .catch((error) => {
-                console.log('Compartilhamento cancelado:', error);
-            });
-    } else {
-        copyToClipboard(reportText);
-        closeReportModal();
-    }
-}
-
-function copyReportToClipboard() {
-    const reportText = buildReportText();
-    copyToClipboard(reportText);
-    closeReportModal();
-}
-
-// Função auxiliar para copiar texto para a área de transferência
-function copyToClipboard(text) {
-    if (navigator.clipboard) {
-        navigator.clipboard.writeText(text)
-            .then(() => showToast('📋', 'Relatório copiado! Cole no WhatsApp ou E-mail.'))
-            .catch(() => fallbackCopyTextToClipboard(text));
-    } else {
-        fallbackCopyTextToClipboard(text);
-    }
-}
-
-function fallbackCopyTextToClipboard(text) {
-    const textArea = document.createElement("textarea");
-    textArea.value = text;
-    textArea.style.top = "0";
-    textArea.style.left = "0";
-    textArea.style.position = "fixed";
-    document.body.appendChild(textArea);
-    textArea.focus();
-    textArea.select();
-    try {
-        const successful = document.execCommand('copy');
-        if (successful) {
-            showToast('📋', 'Relatório copiado! Cole no WhatsApp ou E-mail.');
-        } else {
-            showToast('❌', 'Não foi possível copiar o relatório.');
-        }
-    } catch (err) {
-        showToast('❌', 'Não foi possível copiar o relatório.');
-    }
-    document.body.removeChild(textArea);
+    window.open(whatsappUrl, '_blank');
+    showToast('✅', 'Abrindo WhatsApp...');
 }
 
 // ---- Initialize ----
