@@ -638,9 +638,17 @@ function sendReportWhatsApp() {
 
     // Abrir WhatsApp com o texto do relatório
     const encodedText = encodeURIComponent(report);
-    const whatsappUrl = `https://wa.me/?text=${encodedText}`;
+    const whatsappUrl = `https://api.whatsapp.com/send?text=${encodedText}`;
 
-    window.open(whatsappUrl, '_blank');
+    // Usar link <a> para evitar bloqueio de popup
+    const link = document.createElement('a');
+    link.href = whatsappUrl;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
     showToast('✅', 'Abrindo WhatsApp...');
 }
 
