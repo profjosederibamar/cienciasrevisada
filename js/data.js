@@ -626,6 +626,48 @@ const VIDEOS_DATA = {
                                 correta: 2
                             }
                         ]
+                    },
+                    {
+                        id: "widhcGlrte0",
+                        titulo: "Sistemas Reprodutores Masculino e Feminino",
+                        assunto: "Reprodução",
+                        perguntas: [
+                            {
+                                pergunta: "Qual é o principal órgão responsável pela produção dos espermatozoides no sistema reprodutor masculino?",
+                                opcoes: ["Próstata", "Testículos", "Vesícula seminal", "Uretra"],
+                                correta: 1
+                            },
+                            {
+                                pergunta: "Onde ocorre a produção dos óvulos (ovócitos) no sistema reprodutor feminino?",
+                                opcoes: ["Útero", "Tubas uterinas", "Ovários", "Vagina"],
+                                correta: 2
+                            },
+                            {
+                                pergunta: "Em qual parte do sistema reprodutor feminino normalmente ocorre a fecundação (encontro do espermatozoide com o óvulo)?",
+                                opcoes: ["No útero", "Na vagina", "Nos ovários", "Nas tubas uterinas"],
+                                correta: 3
+                            },
+                            {
+                                pergunta: "Qual é o órgão onde o embrião se fixa e se desenvolve durante a gravidez?",
+                                opcoes: ["Ovário", "Útero", "Tuba uterina", "Placenta"],
+                                correta: 1
+                            },
+                            {
+                                pergunta: "Qual é o principal hormônio sexual masculino responsável pelas características sexuais secundárias?",
+                                opcoes: ["Estrogênio", "Progesterona", "Testosterona", "Insulina"],
+                                correta: 2
+                            },
+                            {
+                                pergunta: "Quais são os principais hormônios sexuais femininos produzidos pelos ovários?",
+                                opcoes: ["Testosterona e Adrenalina", "Estrogênio e Progesterona", "Insulina e Glucagon", "Hormônio do crescimento e Melatonina"],
+                                correta: 1
+                            },
+                            {
+                                pergunta: "No sistema reprodutor masculino, qual canal é compartilhado com o sistema urinário, servindo para passar a urina e expulsar o sêmen?",
+                                opcoes: ["Ureter", "Ducto deferente", "Epidídimo", "Uretra"],
+                                correta: 3
+                            }
+                        ]
                     }
                 ]
             },
