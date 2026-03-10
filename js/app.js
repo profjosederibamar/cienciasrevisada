@@ -587,69 +587,130 @@ function createConfetti() {
     }
 }
 
-// ---- Report via WhatsApp ----
-function sendReportWhatsApp() {
-    const level = getLevel(state.xp);
-    const now = new Date();
-    const dateStr = now.toLocaleDateString('pt-BR');
-    const timeStr = now.toLocaleTimeString('pt-BR');
+// ---- Relatório em PDF (jsPDF) ----
+function gerarRelatorioPDF() {
+    try {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        const level = getLevel(state.xp);
+        const now = new Date();
+        const dateStr = now.toLocaleDateString('pt-BR');
+        const timeStr = now.toLocaleTimeString('pt-BR');
+        const pageWidth = doc.internal.pageSize.getWidth();
+        let y = 15;
 
-    let report = `📋 *RELATÓRIO DE DESEMPENHO*\n`;
-    report += `*Ciências Revisada*\n\n`;
-    report += `👤 *Aluno(a):* ${state.name}\n`;
-    report += `🏅 *Nível:* ${level.emoji} ${level.nome}\n`;
-    report += `⭐ *XP Total:* ${state.xp}\n`;
-    report += `🔥 *Ofensiva:* ${state.streak} dia(s)\n`;
-    report += `🏆 *Conquistas:* ${state.badges.length}/${BADGES.length}\n\n`;
+        // --- Cabeçalho ---
+        doc.setFillColor(30, 30, 60);
+        doc.rect(0, 0, pageWidth, 40, 'F');
+        doc.setTextColor(255, 255, 255);
+        doc.setFontSize(20);
+        doc.setFont('helvetica', 'bold');
+        doc.text('Ciências Revisada', pageWidth / 2, 18, { align: 'center' });
+        doc.setFontSize(12);
+        doc.setFont('helvetica', 'normal');
+        doc.text('Relatório de Desempenho do Aluno', pageWidth / 2, 28, { align: 'center' });
+        doc.setFontSize(9);
+        doc.text(`Gerado em: ${dateStr} às ${timeStr}`, pageWidth / 2, 36, { align: 'center' });
 
-    report += `📊 *ESTATÍSTICAS*\n`;
-    report += `📺 Vídeos: ${state.watchedVideos.length}\n`;
-    report += `📝 Quizzes: ${Object.keys(state.quizResults).length}\n\n`;
+        y = 50;
 
-    // Detalhamento por turma
-    let hasDetail = false;
-    for (const [turmaKey, turma] of Object.entries(VIDEOS_DATA)) {
-        const turmaVideos = state.watchedVideos.filter(v => v.startsWith(turmaKey + '-'));
-        if (turmaVideos.length === 0) continue;
-        hasDetail = true;
+        // --- Dados do Aluno ---
+        doc.setTextColor(0, 0, 0);
+        doc.setFontSize(14);
+        doc.setFont('helvetica', 'bold');
+        doc.text('Dados do Aluno', 14, y);
+        y += 8;
 
-        report += `${turma.emoji} *${turma.nome}*\n`;
-        for (const [bimKey, bim] of Object.entries(turma.bimestres)) {
-            const bimWatched = bim.videos.filter((_, idx) =>
-                state.watchedVideos.includes(`${turmaKey}-${bimKey}-${idx}`)
-            );
-            if (bimWatched.length === 0) continue;
+        doc.setFontSize(11);
+        doc.setFont('helvetica', 'normal');
+        doc.text(`Aluno(a): ${state.name}`, 14, y); y += 6;
+        doc.text(`Nível: ${level.nome}`, 14, y); y += 6;
+        doc.text(`XP Total: ${state.xp}`, 14, y); y += 6;
+        doc.text(`Ofensiva: ${state.streak} dia(s)`, 14, y); y += 6;
+        doc.text(`Conquistas: ${state.badges.length}/${BADGES.length}`, 14, y); y += 10;
 
-            report += `  📚 ${bim.titulo}: ${bimWatched.length}/${bim.videos.length}\n`;
+        // --- Estatísticas ---
+        doc.setFillColor(240, 240, 250);
+        doc.rect(14, y - 4, pageWidth - 28, 20, 'F');
+        doc.setFontSize(12);
+        doc.setFont('helvetica', 'bold');
+        doc.text('Estatísticas Gerais', 18, y + 2);
+        y += 8;
+        doc.setFontSize(11);
+        doc.setFont('helvetica', 'normal');
+        doc.text(`Vídeos Assistidos: ${state.watchedVideos.length}     |     Quizzes Respondidos: ${Object.keys(state.quizResults).length}`, 18, y + 2);
+        y += 16;
 
-            bim.videos.forEach((video, idx) => {
-                const videoKey = `${turmaKey}-${bimKey}-${idx}`;
-                if (!state.watchedVideos.includes(videoKey)) return;
-                const quiz = state.quizResults[videoKey];
-                report += `    ✅ ${video.titulo}`;
-                if (quiz) report += ` (${quiz.correct}/${quiz.total})`;
-                report += `\n`;
-            });
+        // --- Detalhamento por turma ---
+        for (const [turmaKey, turma] of Object.entries(VIDEOS_DATA)) {
+            const turmaVideos = state.watchedVideos.filter(v => v.startsWith(turmaKey + '-'));
+            if (turmaVideos.length === 0) continue;
+
+            // Verificar se precisa de nova página
+            if (y > 260) { doc.addPage(); y = 15; }
+
+            doc.setFillColor(100, 60, 200);
+            doc.rect(14, y - 4, pageWidth - 28, 8, 'F');
+            doc.setTextColor(255, 255, 255);
+            doc.setFontSize(12);
+            doc.setFont('helvetica', 'bold');
+            doc.text(`${turma.nome}`, 18, y + 2);
+            doc.setTextColor(0, 0, 0);
+            y += 10;
+
+            for (const [bimKey, bim] of Object.entries(turma.bimestres)) {
+                const bimWatched = bim.videos.filter((_, idx) =>
+                    state.watchedVideos.includes(`${turmaKey}-${bimKey}-${idx}`)
+                );
+                if (bimWatched.length === 0) continue;
+
+                if (y > 265) { doc.addPage(); y = 15; }
+
+                doc.setFontSize(11);
+                doc.setFont('helvetica', 'bold');
+                doc.text(`${bim.titulo} (${bimWatched.length}/${bim.videos.length} vídeos)`, 18, y);
+                y += 6;
+
+                doc.setFont('helvetica', 'normal');
+                doc.setFontSize(10);
+                bim.videos.forEach((video, idx) => {
+                    const videoKey = `${turmaKey}-${bimKey}-${idx}`;
+                    if (!state.watchedVideos.includes(videoKey)) return;
+
+                    if (y > 275) { doc.addPage(); y = 15; }
+
+                    const quiz = state.quizResults[videoKey];
+                    let line = `  • ${video.titulo}`;
+                    if (quiz) line += ` — Quiz: ${quiz.correct}/${quiz.total}`;
+                    doc.text(line, 22, y);
+                    y += 5;
+                });
+                y += 3;
+            }
+            y += 4;
         }
-        report += `\n`;
+
+        // --- Rodapé ---
+        if (y > 270) { doc.addPage(); y = 15; }
+        doc.setDrawColor(200, 200, 200);
+        doc.line(14, y, pageWidth - 14, y);
+        y += 6;
+        doc.setFontSize(9);
+        doc.setTextColor(120, 120, 120);
+        doc.text('Ciências Revisada — Plataforma de Estudos', pageWidth / 2, y, { align: 'center' });
+        y += 4;
+        doc.text('Professor: José de Ribamar', pageWidth / 2, y, { align: 'center' });
+
+        // Gerar e abrir o PDF
+        const pdfBlob = doc.output('blob');
+        const pdfUrl = URL.createObjectURL(pdfBlob);
+        window.open(pdfUrl, '_blank');
+
+        showToast('📄', 'PDF gerado com sucesso!');
+    } catch (error) {
+        console.error('Erro ao gerar PDF:', error);
+        showToast('❌', 'Erro ao gerar o PDF. Tente novamente.');
     }
-
-    report += `📅 ${dateStr} às ${timeStr}`;
-
-    // Abrir WhatsApp com o texto do relatório
-    const encodedText = encodeURIComponent(report);
-    const whatsappUrl = `https://api.whatsapp.com/send?text=${encodedText}`;
-
-    // Usar link <a> para evitar bloqueio de popup
-    const link = document.createElement('a');
-    link.href = whatsappUrl;
-    link.target = '_blank';
-    link.rel = 'noopener noreferrer';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-
-    showToast('✅', 'Abrindo WhatsApp...');
 }
 
 // ---- Initialize ----
